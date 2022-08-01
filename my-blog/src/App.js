@@ -10,10 +10,10 @@ function App() {
     <Router>
       <div className="App">
         <Routes>
-          <Route path="/" component={HomePage} exact/>
-          <Route path="/about" component={AboutPage} />
-          <Route path="/articles-list" component={ArticlesList} />
-          <Route path="/article" component={ArticlePage} />
+          <Route path="/" element={<HomePage/>} exact />
+          <Route path="/about" element={<AboutPage/>} />
+          <Route path="/articles-list" element={<ArticlesList/>} />
+          <Route path="/article" element={<ArticlePage/>} />
         </Routes>
       </div>
     </Router>
