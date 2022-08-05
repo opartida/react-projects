@@ -22,7 +22,7 @@ app.post("/api/articles/:name/upvote", (req, response) => {
   articlesInfo[articleName].upvotes += 1;
   response
     .status(200)
-    .send(`${articleName} now has ${articlesInfo[articleName].upvotes}`);
+    .send(`${articleName} now has ${articlesInfo[articleName].upvotes} upvotes!!`);
 });
 
 app.listen(8000, () => {
