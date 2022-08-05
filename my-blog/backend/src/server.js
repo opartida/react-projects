@@ -79,7 +79,7 @@ app.post("/api/articles/:name/add-comment", (req, res) => {
     res.status(200).json(updateArticleInfo);
   }, res);
 });
-app.get("*", (req, res) => {
+app.get("*", (_, res) => {
   res.sendFile(path.join(__dirName + "/build/index.html"));
 });
 
