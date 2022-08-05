@@ -76,8 +76,6 @@ app.post("/api/articles/:name/add-comment", (req, res) => {
     });
 
     res.status(200).json(updateArticleInfo);
-
-
   }, res)
 });
 
