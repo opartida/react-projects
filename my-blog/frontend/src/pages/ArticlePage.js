@@ -6,6 +6,7 @@ import NotFoundPage from "./NotFoundPage";
 import { useState, useEffect } from "react";
 import CommentsList from "../components/CommentsList";
 import UpvotesSection from "../components/UpvotesSection";
+import AddCommentForm from "../components/AddCommentForm";
 
 const ArticlePage = () => {
   const { name } = useParams();
@@ -39,6 +40,7 @@ const ArticlePage = () => {
         <p key={key}>{paragraph}</p>
       ))}
       <CommentsList comments={articleInfo.comments} />
+      <AddCommentForm articleName={articleInfo.name} setArticleInfo={setArticleInfo}/>
       <h3>Other Articles:</h3>
       <ArticlesList articles={otherArticles} />
     </>
