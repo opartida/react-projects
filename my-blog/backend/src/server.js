@@ -1,9 +1,11 @@
 import express from "express";
 import bodyParser from "body-parser";
+import path from "path";
 
 const app = express();
 
 app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, "/build")));
 
 const withDB = async (operations, res) => {
   try {
@@ -28,20 +30,19 @@ app.post("/api/articles/:name/upvote", async (req, res) => {
     const articleInfo = await db
       .collection("articles")
       .findOne({ name: articleName });
-    
+
     await db
       .collection("articles")
       .updateOne(
         { name: articleName },
-        { '$set': { upvotes: articleInfo.upvotes + 1 } }
+        { $set: { upvotes: articleInfo.upvotes + 1 } }
       );
 
     const updateArticleInfo = await db.collection("articles").findOne({
       name: articleName,
-    });   
+    });
 
     res.status(200).json(updateArticleInfo);
-
   }, res);
 });
 
@@ -56,7 +57,7 @@ app.get("/api/articles/:name", async (req, res) => {
 });
 
 app.post("/api/articles/:name/add-comment", (req, res) => {
-  withDB(async (db)=> {
+  withDB(async (db) => {
     const { username, text } = req.body;
     const articleName = req.params.name;
 
@@ -68,7 +69,7 @@ app.post("/api/articles/:name/add-comment", (req, res) => {
       .collection("articles")
       .updateOne(
         { name: articleName },
-        { $set: { comments: articleInfo.comments.concat({username, text}) } }
+        { $set: { comments: articleInfo.comments.concat({ username, text }) } }
       );
 
     const updateArticleInfo = await db.collection("articles").findOne({
@@ -76,7 +77,10 @@ app.post("/api/articles/:name/add-comment", (req, res) => {
     });
 
     res.status(200).json(updateArticleInfo);
-  }, res)
+  }, res);
+});
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirName + "/build/index.html"));
 });
 
 app.listen(8000, () => {
