@@ -11,7 +11,6 @@ const Users = () => {
     };
     fetchData();
   }, []);
-  console.log('entro', data.length)
   return data.length
     ? data && <UsersList data={data} setData={setData} />
     : null;
